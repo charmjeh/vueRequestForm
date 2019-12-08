@@ -1,5 +1,13 @@
 # vueRequestForm
 
+## 사무실 대청소 요청서 폼
+
+* [x] Vue Project Setting & Create Vue Component
+* [x] Multi Form Structure
+* [ ] Using assets/input.json, assets/output.json
+* [ ] Form Validation
+* [ ] Unit test 
+
 ## Project setup
 ```
 npm install
@@ -30,5 +38,3 @@ npm run lint
 npm run test:unit
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
