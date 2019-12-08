@@ -1,13 +1,19 @@
-import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import {
+  expect,
+} from 'chai';
+import {
+  shallowMount,
+} from '@vue/test-utils';
+import inputData from '../../input';
+import requestForm from '@/components/requestForm.vue';
 
-describe('HelloWorld.vue', () => {
+describe('requestForm.vue', () => {
   it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
+    const wrapper = shallowMount(requestForm, {
+      propsData: {
+        items: inputData.items,
+      },
     });
-    expect(wrapper.text()).to.include(msg);
+    expect(wrapper.text()).to.include(inputData.items);
   });
 });
