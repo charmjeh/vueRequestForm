@@ -1,7 +1,10 @@
 <template>
   <main class="request" :id="inputData.formId">
-    <section class="question">
     <h1>{{inputData.title}}</h1>
+    <span id="step-guide">
+    STEP {{stepItemId}} / {{inputData.items.length}}
+    </span>
+    <section class="question">
       <request-form
       :items="inputData.items"
       :stepItemId="stepItemId"
@@ -10,7 +13,6 @@
       @validateForm="validateForm"
       ></request-form>
     </section>
-    {{result}}
     <section class="control">
       <button class="prev"
       @click="stepItemId--"
@@ -24,6 +26,7 @@
       class="submit"
       type="submit"
       v-if="stepItemId == inputData.items.length"
+      @click='onSubmit'
       >제출</button>
     </section>
   </main>
@@ -59,28 +62,38 @@ export default {
     }
   },
   methods: {
-    validateForm() {
+    validateForm(type = undefined) {
       this.focusedItem = 0;
 
       for (const idx in this.result.items) {
-        console.log(idx)
         const item = this.result.items[idx];
-        console.log('여기', item, idx)
         if (this.stepItemId === item.id && item.answer.length <= 0) {
           this.focusedItem = item.id;
         }
       }
 
-      if (this.focusedItem > 0) {
-        alert('값을 입력해주세요!')
-        return;
-      }
-
-      this.stepItemId++;
+      if (type !== 'submit') { this.stepItemId++; }
     },
     onSubmit() {
-      this.validateForm();
-      console.log(this.result)
+      this.validateForm('submit');
+      const { id, items } = this.result;
+      let answerItem = [];
+      items.forEach((list, idx) => {
+        let answerType = typeof list.answer;
+        let subAnswer = (answerType === 'object') ? list.answer.join(',') : list.answer;
+        answerItem[idx] = {
+          id: list.id,
+          answer: subAnswer
+        }
+      })
+
+      const requestData = {
+        id,
+        items: answerItem
+      }
+
+      // 제출 버튼 클릭 시 결과값
+      console.log(requestData)
     }
   }
 };

@@ -1,5 +1,4 @@
 <template>
-  <main class="steps">
     <section id="states">
         <form class="form-horizontal" method="post"
           v-for="(item, idx) in items" :key="idx"
@@ -8,7 +7,7 @@
           ref="item.itemId"
           v-show="item.itemId == stepItemId"
           >
-            <label>{{stepItemId}}. {{item.title}}</label>
+            <h2>{{stepItemId}}. {{item.title}}</h2>
             <section v-show="stepItemId == 1">
               <div class="form-group"
                 v-for="(option, idx) in item.options"
@@ -17,11 +16,14 @@
               <input
                 type="checkbox"
                 v-model="result.items[item.itemId - 1].answer"
-                :id="option.id"
+                :id="option.text"
                 :value="option.text"
                 required
               />
-              <label :for="option.id" class="control-label">{{option.text}}</label>
+              <label
+              :for="option.text"
+              class="control-label"
+              >{{option.text}}</label>
               </div>
             </section>
             <section v-show="stepItemId == 2">
@@ -33,11 +35,12 @@
                 type="radio"
                 :name="'itemId' + item.itemId"
                 v-model="result.items[item.itemId - 1].answer"
-                :id="option.id"
+                :id="option.text"
                 :value="option.text"
                 required
               />
-              <label :for="option.id" class="control-label">{{option.text}}</label>
+              <label
+              class="control-label">{{option.text}}</label>
               </div>
             </section>
             <section v-show="stepItemId == 3">
@@ -45,11 +48,9 @@
               <input
                 type="text"
                 :name="'itemId' + item.itemId"
-                v-model="item.options[0]"
-                disabled
+                v-model="result.items[item.itemId - 1].answer"
                 required
               />
-              <label class="control-label">{{item.options[0]}}</label>
               </div>
             </section>
             <section v-show="stepItemId == 4">
@@ -60,7 +61,7 @@
                 type="radio"
                 v-for="(option, idx) in item.options"
                 :key="idx"
-                :id="option.id"
+                :id="item.itemId"
                 required
               >{{option.text}}</option>
               </select>
@@ -68,7 +69,6 @@
           </fieldset>
         </form>
     </section>
-  </main>
 </template>
 
 <script>
@@ -79,11 +79,6 @@ export default {
     stepItemId: Number,
     result: Object,
     focusedForm: Number
-  },
-  mounted() {
-    this.$on('focusForm', () => {
-      console.log('focused')
-    })
   }
 };
 </script>

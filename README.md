@@ -5,9 +5,10 @@
 * [x] Vue Project Setting & Create Vue Component
 * [x] Multi Form Structure
 * [x] Using assets/input.json
-* [ ] output.json
-* [ ] Form Validation
+* [x] output.json
+* [ ] Form Validation ( + focus form )
 * [ ] Unit test 
+* [ ] Design ( + modify input style )
 
 ## Project setup
 ```
